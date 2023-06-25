@@ -1,0 +1,63 @@
+﻿@model MVC_Authentication.Models.DTO.RegistrationModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registration</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <form asp-action="Registration" method="post">
+
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Name">Name</label>
+            <input class="form-control" placeholder="Name" type="text" asp-for="Name" />
+            <span style="color:red" asp-validation-for="Name"></span>
+        </div>
+        
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Email">Email</label>
+            <input class="form-control" placeholder="Email" type="email" asp-for="Email" />
+            <span style="color:red" asp-validation-for="Email"></span>
+        </div>
+        
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="UserName">User Name</label>
+            <input class="form-control" placeholder="User name" type="text" asp-for="UserName" />
+            <span style="color:red" asp-validation-for="UserName"></span>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Password">Password</label>
+            <input class="form-control" placeholder="Password" type="password" asp-for="Password" />
+            <span style="color:red" asp-validation-for="Password"></span>
+        </div>
+        
+        <!-- Confirm Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="ConfirmPassword">Password</label>
+            <input class="form-control" placeholder="ConfirmPassword" type="password" asp-for="ConfirmPassword" />
+            <span style="color:red" asp-validation-for="ConfirmPassword"></span>
+        </div>
+
+        @if (TempData["msg"] != null)
+        {
+            <div style="color:red">@TempData["msg"]</div>
+        }
+
+        <div>
+            <input class="btn btn-primary btn-block mb-4" type="submit" value="Register" />
+            <a asp-action="Login" asp-controller="UserAuthentication">Sign-In</a>
+        </div>
+    </form>
+</body>
+</html>

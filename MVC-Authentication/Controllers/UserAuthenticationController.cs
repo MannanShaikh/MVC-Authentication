@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MVC_Authentication.Models.DTO;
 using MVC_Authentication.Repositories.Abstract;
@@ -15,6 +16,25 @@ namespace MVC_Authentication.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        public async  Task<IActionResult> Registration(RegistrationModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            model.Role = "user";
+            var result = await _service.RegistrationAsync(model);
+            TempData["msg"] = result.Message;
+            if (result.Message == "User has been registered")
+            {
+                return RedirectToAction(nameof(Login)); 
+            }
+            else
+            {
+                return RedirectToAction(nameof(Registration));
+            }
         }
 
         [HttpPost]
@@ -36,5 +56,27 @@ namespace MVC_Authentication.Controllers
                 return RedirectToAction(nameof(Login));
             }
         }
+
+        [Authorize]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            await _service.LogoutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+
+        //public async Task<IActionResult> AdminRegistration()
+        //{
+        //    var model = new RegistrationModel()
+        //    {
+        //        UserName = "Admin",
+        //        Name = "Admin",
+        //        Email="admin@mail.com",
+        //        Role="admin",
+        //        Password="Admin@123"
+        //    };
+        //    var result = await _service.RegistrationAsync(model);
+        //    return Ok(result);
+        //}
+
     }
 }

@@ -48,6 +48,13 @@
             <input class="form-control" placeholder="ConfirmPassword" type="password" asp-for="ConfirmPassword" />
             <span style="color:red" asp-validation-for="ConfirmPassword"></span>
         </div>
+        
+        <!-- Role input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Role">Role</label>
+            <input class="form-control" value="user" placeholder="Role" type="password" asp-for="Role" />
+            <span style="color:red" asp-validation-for="Role"></span>
+        </div>
 
         @if (TempData["msg"] != null)
         {

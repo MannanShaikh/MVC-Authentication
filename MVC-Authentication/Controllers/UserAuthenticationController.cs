@@ -18,13 +18,19 @@ namespace MVC_Authentication.Controllers
             return View();
         }
 
+        public IActionResult Registration()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public async  Task<IActionResult> Registration(RegistrationModel model)
         {
+            //model.Role = "user";
+
             if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            model.Role = "user";
+                return View(model);
+            
             var result = await _service.RegistrationAsync(model);
             TempData["msg"] = result.Message;
             if (result.Message == "User has been registered")

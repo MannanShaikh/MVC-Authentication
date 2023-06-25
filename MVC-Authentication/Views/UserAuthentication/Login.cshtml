@@ -1,4 +1,4 @@
-﻿
+﻿@model MVC_Authentication.Models.DTO.LoginModel
 @{
     Layout = null;
 }
@@ -9,7 +9,34 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
 <body>
+    <form asp-action="Login" method="post">
+
+        <!-- Username input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="UserName">User Name</label>
+            <input class="form-control" type="text" asp-for="UserName" />
+            <span style="color:red" asp-validation-for="UserName"></span>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Password">Password</label>
+            <input class="form-control" type="password" asp-for="Password" />
+            <span style="color:red" asp-validation-for="Password"></span>
+        </div>
+
+        @if (TempData["msg"] != null)
+        {
+            <div style="color:red">@TempData["msg"]</div>
+        }
+
+        <div>
+            <input class ="btn btn-primary btn-block mb-4" type="submit" value="Sign In" />
+            <a asp-action="Registration" asp-controller="UserAuthentication">Sign Up</a>
+        </div>
+    </form>
 </body>
 </html>
